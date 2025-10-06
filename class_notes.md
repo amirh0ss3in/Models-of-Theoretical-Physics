@@ -86,54 +86,9 @@ It is standard to write the Gaussian PDF in terms of its variance, $\sigma^2$. T
 
 **Ex 1:** Show that when the mean of the Gaussian is $\mu$, the characteristic function is $\varphi(k) = e^{ik\mu - \frac{\sigma^2k^2}{2}}$.
 
-Solution:
-
-A Gaussian with mean $\mu$ and variance $\sigma^2$ has the PDF:
-$$ p(x) = \frac{1}{\sqrt{2\pi\sigma^2}} e^{-\frac{(x-\mu)^2}{2\sigma^2}} $$
-The characteristic function is:
-$$ \varphi(k) = \int_{-\infty}^{+\infty} e^{ikx} \frac{1}{\sqrt{2\pi\sigma^2}} e^{-\frac{(x-\mu)^2}{2\sigma^2}} dx $$
-Let's make the substitution $y = x - \mu$, so $x = y + \mu$ and $dx = dy$.
-$$
-\begin{aligned}
-\varphi(k) &= \frac{1}{\sqrt{2\pi\sigma^2}} \int_{-\infty}^{+\infty} e^{ik(y+\mu)} e^{-\frac{y^2}{2\sigma^2}} dy \\
-&= e^{ik\mu} \left( \frac{1}{\sqrt{2\pi\sigma^2}} \int_{-\infty}^{+\infty} e^{iky} e^{-\frac{y^2}{2\sigma^2}} dy \right)
-\end{aligned}
-$$
-The expression in the parenthesis is just the characteristic function of a zero-mean Gaussian, which we already found in **⑥**. Therefore:
-$$ \varphi(k) = e^{ik\mu} \cdot e^{-\frac{\sigma^2k^2}{2}} = e^{ik\mu - \frac{\sigma^2k^2}{2}} $$
-
 **Ex 2:** Calculate the c.f. of the uniform distribution $U([a, b])$.
 
-Solution:
-
-The PDF for the uniform distribution on $[a, b]$ is $p(x) = \frac{1}{b-a}$ for $x \in [a, b]$ and 0 otherwise.
-$$
-\begin{aligned}
-\varphi(k) &= \int_a^b e^{ikx} \frac{1}{b-a} dx \\
-&= \frac{1}{b-a} \left[ \frac{e^{ikx}}{ik} \right]_a^b \\
-&= \frac{e^{ikb} - e^{ika}}{ik(b-a)}
-\end{aligned}
-$$
-
 **Ex 3:** Calculate the c.f. of the Gamma distribution $p(x) = \frac{\beta^\alpha}{\Gamma(\alpha)} x^{\alpha-1} e^{-\beta x}$ for $x > 0$.
-
-Solution:
-
-The characteristic function is defined for $x>0$:
-$$
-\begin{aligned}
-\varphi(k) &= \int_0^\infty e^{ikx} \frac{\beta^\alpha}{\Gamma(\alpha)} x^{\alpha-1} e^{-\beta x} dx \\
-&= \frac{\beta^\alpha}{\Gamma(\alpha)} \int_0^\infty x^{\alpha-1} e^{-(\beta - ik)x} dx
-\end{aligned}
-$$
-We use the standard integral definition of the Gamma function, $\Gamma(z) = \int_0^\infty t^{z-1} e^{-t} dt$. Let $u = (\beta - ik)x$, so $x = u/(\beta-ik)$ and $dx = du/(\beta-ik)$.
-$$
-\begin{aligned}
-\varphi(k) &= \frac{\beta^\alpha}{\Gamma(\alpha)} \int_0^\infty \left(\frac{u}{\beta-ik}\right)^{\alpha-1} e^{-u} \frac{du}{\beta-ik} \\
-&= \frac{\beta^\alpha}{\Gamma(\alpha)} \frac{1}{(\beta-ik)^\alpha} \int_0^\infty u^{\alpha-1} e^{-u} du \\
-&= \frac{\beta^\alpha}{\Gamma(\alpha)} \frac{\Gamma(\alpha)}{(\beta-ik)^\alpha} = \left(\frac{\beta}{\beta-ik}\right)^\alpha = \left(1 - \frac{ik}{\beta}\right)^{-\alpha}
-\end{aligned}
-$$
 
 ---
 
@@ -162,15 +117,6 @@ Since $\det(A) = \det(O^T \Lambda O) = \det(\Lambda) = \prod \lambda_i$, we get 
 > $$
 
 **Exercise:** Using formula **⑧**, show that $\int_{-\infty}^{\infty}\int_{-\infty}^{\infty} dx_1 dx_2 \, e^{-\frac{3}{2}(x_1^2+x_2^2) + x_1x_2} = \frac{\pi}{\sqrt{2}}$.
-
-Solution:
-
-First, we write the exponent in the matrix form $-\frac{1}{2}\vec{x}^T A \vec{x}$:
-$$ -\frac{3}{2}(x_1^2+x_2^2) + x_1x_2 = -\frac{1}{2} (3x_1^2 - 2x_1x_2 + 3x_2^2) = -\frac{1}{2} \begin{pmatrix} x_1 & x_2 \end{pmatrix} \begin{pmatrix} 3 & -1 \\ -1 & 3 \end{pmatrix} \begin{pmatrix} x_1 \\ x_2 \end{pmatrix} $$
-So the matrix is $A = \begin{pmatrix} 3 & -1 \\ -1 & 3 \end{pmatrix}$. The dimension is $n=2$.
-The determinant is $\det(A) = (3)(3) - (-1)(-1) = 9 - 1 = 8$.
-Using formula **⑧**, the value of the integral is:
-$$ \frac{(2\pi)^{2/2}}{\sqrt{\det A}} = \frac{2\pi}{\sqrt{8}} = \frac{2\pi}{2\sqrt{2}} = \frac{\pi}{\sqrt{2}} $$
 
 ### 3.2 The General Multidimensional Integral
 As in the 1D case, we can add a linear term $\vec{b}^T \vec{x}$:
@@ -242,31 +188,3 @@ In general:
 > $$
 
 **Exercise:** For the distribution defined by $A = \begin{pmatrix} 3 & -1 \\ -1 & 3 \end{pmatrix}$, we found $A^{-1} = \frac{1}{8}\begin{pmatrix} 3 & 1 \\ 1 & 3 \end{pmatrix}$. Use Wick's theorem to calculate $\langle x_1^2 x_2^2 \rangle$ and $\langle x_1^4 \rangle$.
-
-Solution:
-We have the 2-point functions: $\langle x_1^2 \rangle = (A^{-1})_{11} = 3/8$, $\langle x_2^2 \rangle = (A^{-1})_{22} = 3/8$, and $\langle x_1 x_2 \rangle = (A^{-1})_{12} = 1/8$.
-
-**1. Calculating $\langle x_1^2 x_2^2 \rangle$**
-We need to evaluate $\langle x_1 x_1 x_2 x_2 \rangle$. The three possible pairings are:
-- Pair the first two $x_1$'s and the two $x_2$'s: $\langle x_1 x_1 \rangle \langle x_2 x_2 \rangle$
-- Pair the first $x_1$ with the first $x_2$, and the second $x_1$ with the second $x_2$: $\langle x_1 x_2 \rangle \langle x_1 x_2 \rangle$
-- Pair the first $x_1$ with the second $x_2$, and the second $x_1$ with the first $x_2$: $\langle x_1 x_2 \rangle \langle x_1 x_2 \rangle$
-
-Summing them up:
-$$
-\begin{aligned}
-\langle x_1^2 x_2^2 \rangle &= \langle x_1^2 \rangle \langle x_2^2 \rangle + 2 \langle x_1 x_2 \rangle^2 \\
-&= \left(\frac{3}{8}\right)\left(\frac{3}{8}\right) + 2\left(\frac{1}{8}\right)^2 \\
-&= \frac{9}{64} + \frac{2}{64} = \frac{11}{64}
-\end{aligned}
-$$
-
-**2. Calculating $\langle x_1^4 \rangle$**
-We need to evaluate $\langle x_1 x_1 x_1 x_1 \rangle$. The indices are all the same. Let's label them for clarity: $\langle x_{1a} x_{1b} x_{1c} x_{1d} \rangle$. The pairings are:
-- (ab)(cd) $\implies \langle x_1 x_1 \rangle \langle x_1 x_1 \rangle$
-- (ac)(bd) $\implies \langle x_1 x_1 \rangle \langle x_1 x_1 \rangle$
-- (ad)(bc) $\implies \langle x_1 x_1 \rangle \langle x_1 x_1 \rangle$
-All three pairings give the same result.
-$$
-\langle x_1^4 \rangle = 3 \langle x_1^2 \rangle^2 = 3 \left(\frac{3}{8}\right)^2 = 3 \left(\frac{9}{64}\right) = \frac{27}{64}
-$$
