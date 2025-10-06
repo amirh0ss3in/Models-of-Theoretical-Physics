@@ -24,8 +24,11 @@ From this, we can see the normalization constant for the Gaussian PDF is $C = \s
 ### 1.2 The General 1D Gaussian Integral
 A more general form of the integral includes a linear term in the exponent:
 $$
-\text{②} \quad \int_{-\infty}^{+\infty} e^{-\frac{ax^2}{2} + bx} dx = ?
+\text{②} \quad I(b) = \int_{-\infty}^{+\infty} e^{-\frac{ax^2}{2} + bx} dx = ?
 $$
+There are two common methods to solve this integral.
+
+#### Method 1: Completing the Square
 To solve this, we "complete the square" in the exponent. The core idea is to shift the integration variable to center the Gaussian. The maximum of the exponent occurs where its derivative is zero:
 $$
 \frac{d}{dx} \left(-\frac{ax^2}{2} + bx\right) = -ax + b = 0 \implies x = \frac{b}{a}
@@ -41,9 +44,32 @@ $$
 $$
 The integral becomes:
 $$
-\int_{-\infty}^{+\infty} e^{-\frac{ay^2}{2} + \frac{b^2}{2a}} dy = e^{\frac{b^2}{2a}} \int_{-\infty}^{+\infty} e^{-\frac{ay^2}{2}} dy
+I(b) = \int_{-\infty}^{+\infty} e^{-\frac{ay^2}{2} + \frac{b^2}{2a}} dy = e^{\frac{b^2}{2a}} \int_{-\infty}^{+\infty} e^{-\frac{ay^2}{2}} dy
 $$
-Using the result from **①**, we arrive at the general solution, which holds even if $b$ is a complex number.
+Using the result from **①**, we arrive at the general solution.
+
+#### Method 2: Differentiation Under the Integral Sign
+An alternative, powerful method is to treat the integral $I(b)$ as a function of $b$ and find a differential equation that it satisfies. We differentiate $I(b)$ with respect to $b$:
+$$
+\frac{dI}{db} = \frac{d}{db} \int_{-\infty}^{+\infty} e^{-\frac{ax^2}{2} + bx} dx = \int_{-\infty}^{+\infty} x e^{-\frac{ax^2}{2} + bx} dx
+$$
+The key is to relate this back to $I(b)$ using integration by parts. We note that $x e^{-\frac{ax^2}{2}} = -\frac{1}{a} \frac{d}{dx}(e^{-\frac{ax^2}{2}})$.
+$$
+\frac{dI}{db} = \int_{-\infty}^{+\infty} e^{bx} \left(x e^{-\frac{ax^2}{2}}\right) dx = -\frac{1}{a} \int_{-\infty}^{+\infty} e^{bx} \left(\frac{d}{dx}e^{-\frac{ax^2}{2}}\right) dx
+$$
+Using integration by parts, $\int u \, dv = [uv] - \int v \, du$, with $u = e^{bx}$ and $dv = \frac{d}{dx}(e^{-\frac{ax^2}{2}})dx$:
+$$
+\begin{aligned}
+\frac{dI}{db} &= -\frac{1}{a} \left( \left[ e^{bx} e^{-\frac{ax^2}{2}} \right]_{-\infty}^{+\infty} - \int_{-\infty}^{+\infty} e^{-\frac{ax^2}{2}} (b e^{bx}) dx \right) \\
+&= -\frac{1}{a} \left( 0 - b \int_{-\infty}^{+\infty} e^{-\frac{ax^2}{2} + bx} dx \right) \\
+\frac{dI}{db} &= \frac{b}{a} I(b)
+\end{aligned}
+$$
+This is a first-order linear ODE whose solution is $I(b) = C e^{\frac{b^2}{2a}}$. We find the constant $C$ by evaluating at $b=0$:
+$$
+I(0) = C e^0 = C = \int_{-\infty}^{+\infty} e^{-\frac{ax^2}{2}} dx = \sqrt{\frac{2\pi}{a}}
+$$
+Substituting $C$ back gives the same final result, which holds even if $b$ is a complex number.
 
 > **③ The General 1D Gaussian Integral**
 > $$
