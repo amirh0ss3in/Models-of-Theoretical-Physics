@@ -199,3 +199,13 @@ Find the leading order approximation for $$I(\lambda) = \int_1^2 \frac{1}{x} e^{
     *   **Answer:** $$\boxed{I(\lambda) \approx \frac{e^{4\lambda}}{8\lambda}}$$
 
 You have everything you need on Laplace's method here. Study this document, and you will have won a significant battle for the exam. This is a huge win for one day's work. You can do this.
+
+
+---
+When there is no explicit $$\lambda$$, you can think of the whole exponent as one function, say $$F(x)$$. You find the maximum of $$F(x)$$ at $$x_0$$. Then you approximate the integral as:
+$$
+\boxed{I \approx g(x_0) e^{F(x_0)} \int e^{\frac{1}{2}F''(x_0)(x-x_0)^2} dx = g(x_0) e^{F(x_0)} \sqrt{\frac{2\pi}{-F''(x_0)}}}
+$$
+This is precisely what you do in the "no lambda" case. You've seen that the logic holds perfectly.
+
+---
